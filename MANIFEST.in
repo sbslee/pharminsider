@@ -1,0 +1,4 @@
+include pharminsider/schema.sql
+graft pharminsider/static
+graft pharminsider/templates
+global-exclude *.pyc
