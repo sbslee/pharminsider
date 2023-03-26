@@ -5,7 +5,8 @@ CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  sex TEXT NOT NULL CHECK (sex IN ('male', 'female'))
+  sex TEXT NOT NULL CHECK (sex IN ('male', 'female')),
+  dob DATE NOT NULL
 );
 
 CREATE TABLE post (

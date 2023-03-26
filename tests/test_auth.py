@@ -6,7 +6,7 @@ from pharminsider.db import get_db
 def test_register(client, app):
     assert client.get('/auth/register').status_code == 200
     response = client.post(
-        '/auth/register', data={'username': 'a', 'password': 'a', 'sex': 'female'}
+        '/auth/register', data={'username': 'a', 'password': 'a', 'sex': 'female', 'dob': '1994-03-14'}
     )
     assert response.headers["Location"] == "/auth/login"
 
@@ -16,16 +16,17 @@ def test_register(client, app):
         ).fetchone() is not None
 
 
-@pytest.mark.parametrize(('username', 'password', 'sex', 'message'), (
-    ('', '', '', b'Username is required.'),
-    ('a', '', '', b'Password is required.'),
-    ('a', 'a', '', b'Sex is required.'),
-    ('test', 'test', 'female', b'already registered'),
+@pytest.mark.parametrize(('username', 'password', 'sex', 'dob', 'message'), (
+    ('', '', '', '', b'Username is required.'),
+    ('a', '', '', '', b'Password is required.'),
+    ('a', 'a', '', '', b'Sex is required.'),
+    ('a', 'a', 'male', '', b'Date of birth is required.'),
+    ('test', 'test', 'female', '1991-03-02', b'already registered'),
 ))
-def test_register_validate_input(client, username, password, sex, message):
+def test_register_validate_input(client, username, password, sex, dob, message):
     response = client.post(
         '/auth/register',
-        data={'username': username, 'password': password, 'sex': sex}
+        data={'username': username, 'password': password, 'sex': sex, 'dob': dob}
     )
     assert message in response.data
 
