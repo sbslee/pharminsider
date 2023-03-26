@@ -8,7 +8,7 @@ $ flask --app pharminsider run --debug
 $ flask --app pharminsider init-db
 
 # Running the tests
-$ purest
+$ pytest
 $ coverage report
 $ coverage run -m pytest
 $ coverage html
