@@ -9,7 +9,7 @@ $ flask --app pharminsider init-db
 
 # Running the tests
 $ pytest
-$ coverage report
 $ coverage run -m pytest
+$ coverage report
 $ coverage html
 ```
