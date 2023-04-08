@@ -2,6 +2,7 @@
 <title>{% block title %}{% endblock %} - PharmInsider</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
+  <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo", width="50" height="50" style="padding: 5px;">
   <h1>PharmInsider</h1>
   <ul>
     {% if g.user %}
