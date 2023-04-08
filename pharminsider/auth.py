@@ -99,3 +99,38 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+
+@bp.route('/profile', methods=('GET', 'POST'))
+@login_required
+def profile():
+    user_id = g.user['id']
+    db = get_db()
+
+    if request.method == 'POST':
+        sex = request.form['sex']
+        dob = request.form['dob']
+        error = None
+
+        if not sex:
+            error = 'Sex is required.'
+        elif not dob:
+            error = 'Date of birth is required.'
+
+        if error is None:
+            db.execute(
+                "UPDATE user SET sex = ?, dob = ? WHERE id = ?",
+                (sex, dob, user_id),
+            )
+            db.commit()
+
+            flash('Profile updated successfully.')
+            return redirect(url_for('auth.profile'))
+
+        flash(error)
+
+    user = db.execute(
+        'SELECT * FROM user WHERE id = ?', (user_id,)
+    ).fetchone()
+
+    return render_template('auth/profile.html', user=user)

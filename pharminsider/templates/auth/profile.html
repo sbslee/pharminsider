@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Update Profile{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username" value="{{ user.username }}" disabled>
+    <label for="sex">Sex</label>
+    <div class="radio-buttons">
+      <input type="radio" id="male" name="sex" value="male" {% if user.sex == 'male' %}checked{% endif %}>
+      <label for="male">Male</label>
+      <input type="radio" id="female" name="sex" value="female" {% if user.sex == 'female' %}checked{% endif %}>
+      <label for="female">Female</label>
+    </div>
+    <label for="dob">Date of birth</label>
+    <input type="date" name="dob" id="dob" value="{{ user.dob }}" required>
+    <input type="submit" value="Update">
+  </form>
+{% endblock %}
